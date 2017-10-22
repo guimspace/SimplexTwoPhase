@@ -34,17 +34,27 @@ function [B, N, c_B, c_N, J, hasArtificial] = free_refill(A)
   hasArtificial = false;
   
   
-  for j = n:-1:1
-    i = m;
-    [r, k] = recursive_is_identity_array(transpose(A(:, j)), i, false);
+  c = 0;
+  i = n;
+  while(i >= 1  &&  c < m)
+    [r, k] = recursive_is_identity_array(transpose(A(:, i)), m, false);
     
     if(r  &&  ~J(k))
-      J(k) = j;
+      J(k) = i;
+      c = c + 1;
     else
-      J(m+j) = j;
-      N = [A(:, j) N];
+      J(m+i) = i;
+      N = [A(:, i) N];
     end
+    
+    i = i - 1;
   end
+  
+  for i = i:-1:1
+    J(m+i) = i;
+    N = [A(:, i)  N];
+  end
+  
   
   k = n;
   for i = 1:1:m
