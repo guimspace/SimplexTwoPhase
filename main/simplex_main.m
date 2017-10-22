@@ -21,18 +21,20 @@
  %%
  % Main control for simplex two-phase algorithm.
 %%
-function x_B = simplex_main(A, b, c, v)
+function [z x chk] = simplex_main(A, b, c, v)
   clc;
+  
+  z = [ ];
+  x = [ ];
+  chk = [ ];
   
   [m, n] = size(A);
   p = size(c, 2);
   mPn = m + n; % mPn = m + n
   
-  if v
-    fprintf('-------------------------------------------\n');
-    fprintf('-       Simplex Two-phase Algorithm       -\n');
-    fprintf('-------------------------------------------\n\n\n');
-  end
+  fprintf('-------------------------------------------\n');
+  fprintf('-       Simplex Two-phase Algorithm       -\n');
+  fprintf('-------------------------------------------\n\n\n');
   
   
   
@@ -45,10 +47,9 @@ function x_B = simplex_main(A, b, c, v)
   % Free Refill
   [B, N, c_B, c_N, J, hasArtificial] = free_refill(A);
   
-  
   if hasArtificial
     % Jumper
-    [B, N, J, x_B] = simplex_core(B, N, b, c_B, c_N, J, v);
+    [B, N, J, x_B, chk] = simplex_core(B, N, b, c_B, c_N, J, v);
     
     
     % Clean Up
@@ -56,12 +57,11 @@ function x_B = simplex_main(A, b, c, v)
     for i = 1:1:m
       if J(i) > p
         if(J(i) > n  &&  x_B(i) ~= 0) % Test artificial variable for feasibility
-          x_B = [ ];
-          if v
-            fprintf('\n');
-            fprintf('Operation stopped\n');
-            fprintf('The original problem has no feasible solution.\n\n');
-          end
+          chk = -1;
+          fprintf('------------------\n');
+          fprintf('Empty Feasible Region\n');
+          fprintf('- The system of equations and/or inequalities defining the feasible region is inconsistent.\n');
+          fprintf('No optimal solution exists.\n');
           return
         else
           c_B(i) = 0;
@@ -90,9 +90,8 @@ function x_B = simplex_main(A, b, c, v)
     end
   else
     if v
-      fprintf('\n');
       fprintf('Skip\n');
-      fprintf('Starting solution is trivial.\n\n');
+      fprintf('Starting solution is trivial.\n\n\n');
     end
     
     for i = 1:1:m
@@ -118,32 +117,49 @@ function x_B = simplex_main(A, b, c, v)
   
   
   
-  
   % ------- Phase 2 ------- %
   if v
-    fprintf('\n');
     fprintf('--- Phase 2\n');
   end
   
-  [B, N, J, x_B] = simplex_core(B, N, b, c_B, c_N, J, v);
-  
-  if isempty(x_B)
-    return
-  end
+  [B, N, J, x_B, chk] = simplex_core(B, N, b, c_B, c_N, J, v);
   
   
   % Blob Plot
-  x_ = [ zeros(1, p) ];
   
-  i = 1;  j = 1;
-  while(i <= m  &&  j <= p)
-    if J(i) <= p
-      x_(J(i)) = x_B(i);
-      j = j + 1;
+  if(chk == 0 || chk == 1)
+    x = [ zeros(1, p) ];
+    
+    i = 1;  j = 1;
+    while(i <= m  &&  j <= p)
+      if J(i) <= p
+        x(J(i)) = x_B(i);
+        j = j + 1;
+      end
+      i = i + 1;
     end
-    i = i + 1;
+    
+    
+    x = transpose(x);
+    x_ = sprintf('%d ', x);
+    z = c * x;
   end
   
-  x_B = transpose(x_);
-  
+  fprintf('------------------\n');
+  switch chk
+    case 0
+      fprintf('Unique Optimal Solution\n');
+      fprintf('Objectve value\n  z = %f\n', z);
+      fprintf('Solution\n  x = [ %s]^T\n', x_);
+    case 1
+      fprintf('Alternative Optimal Solutions\n');
+      fprintf('- Optimal solution set is unbounded.\n');
+      fprintf('Objective value\n  z = %f\n', z);
+      fprintf('Solution\n  x = [ %s]^T\n', x_);
+    case 10
+      fprintf('Unbounded Optimal Objective Value\n');
+      fprintf('- The problem is infeasible, inconsistent, or with an empty feasible region.\n');
+      fprintf('No optimal solution exists.\n');
+  end
+  fprintf('\n');
 end

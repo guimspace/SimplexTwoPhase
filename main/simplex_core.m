@@ -21,8 +21,9 @@
  %%
  % Dantzig's Simplex Algorithm
 %%
-function [B, N, J, x_B] = simplex_core(B, N, b, c_B, c_N, J, v)
+function [B, N, J, x_B, chk] = simplex_core(B, N, b, c_B, c_N, J, v)
 
+  chk = 0;
   [m, n] = size(N);
 
 
@@ -51,9 +52,10 @@ function [B, N, J, x_B] = simplex_core(B, N, b, c_B, c_N, J, v)
 	      fprintf('Simplex complete\n');
 	      
 	      if c_k == 0
-	        fprintf('Alternative optimal solutions found.\n\n');
+	        chk = 1;
+	        fprintf('Alternative optimal solutions found.\n\n\n');
         else
-          fprintf('Optimal solution found.\n\n');
+          fprintf('Optimal solution found.\n\n\n');
 	      end
 	    end
 	    return
@@ -72,11 +74,12 @@ function [B, N, J, x_B] = simplex_core(B, N, b, c_B, c_N, J, v)
 		  
 		  % Test unboundness
 		  if isempty(r)
-		    x_B = [];
+		    chk = 10;
+		    x_B = [ ];
 		    if v
 		      fprintf('\n');
 		      fprintf('Simplex stopped\n');
-		      fprintf('Unbounded optimal objective value.\n\n');
+		      fprintf('Unbounded optimal objective value.\n\n\n');
 		    end
 		    return
 	    else
@@ -89,7 +92,7 @@ function [B, N, J, x_B] = simplex_core(B, N, b, c_B, c_N, J, v)
 	  
 	  % Switch columns
 	  if v
-	    fprintf('%d.  z = %f;  %d <-> %d\n', k, c_B*x_B, J(k_out), J(m+k_in))
+	    fprintf('%d.  z = %f;  %d <-> %d\n', k, c_B*x_B, J(k_out), J(m+k_in));
 	  end
 	  
 	  % B <-> N
