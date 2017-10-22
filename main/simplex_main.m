@@ -21,7 +21,7 @@
  %%
  % Main control for simplex two-phase algorithm.
 %%
-function [z x chk] = simplex_main(A, b, c, v)
+function [x z chk] = simplex_main(A, b, c, v)
   clc;
   
   z = [ ];
@@ -150,12 +150,12 @@ function [z x chk] = simplex_main(A, b, c, v)
     case 0
       fprintf('Unique Optimal Solution\n');
       fprintf('Objectve value\n  z = %f\n', z);
-      fprintf('Solution\n  x = [ %s]^T\n', x_);
+      fprintf('Solution\n  x^T = [ %s]\n', x_);
     case 1
       fprintf('Alternative Optimal Solutions\n');
       fprintf('- Optimal solution set is unbounded.\n');
       fprintf('Objective value\n  z = %f\n', z);
-      fprintf('Solution\n  x = [ %s]^T\n', x_);
+      fprintf('Solution\n  x^T = [ %s]\n', x_);
     case 10
       fprintf('Unbounded Optimal Objective Value\n');
       fprintf('- The problem is infeasible, inconsistent, or with an empty feasible region.\n');
