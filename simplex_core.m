@@ -56,10 +56,12 @@ function [B, N, J, x_B] = simplex_core(B, N, b, c_B, c_N, J, v)
 		  r = [ ];  j = 1;
 		  for i = 1:1:N_size(1)
 		    if(y(i) > 0)
-		      r(j) = x_B(i) / y(i); % Ratio
+		      r(j,1) = x_B(i) / y(i); % Ratio
+		      r(j,2) = i;
 		      j = j + 1;
 		    end
 		  end
+		  
 		  
 		  if( isempty(r) ) % Test unboundness
 		    if(v)
@@ -67,7 +69,8 @@ function [B, N, J, x_B] = simplex_core(B, N, b, c_B, c_N, J, v)
 		    end
 		    return
 	    else
-	      [r_k, k_out] = min(r); % Minimum ratio test
+	      [r_k, i] = min(r(:,1)); % Minimum ratio test
+	      k_out = r(i,2);
 	    end
 	  end
 	  
@@ -75,7 +78,7 @@ function [B, N, J, x_B] = simplex_core(B, N, b, c_B, c_N, J, v)
 	  
 	  % Switch columns
 	  if(v)
-	    fprintf('%d:  z = %f;  %d <-> %d\n', k, c_B*x_B, k_in, k_out)
+	    fprintf('%d:  z = %f;  %d <-> %d\n', k, c_B*x_B, J(k_out), J(N_size(1)+k_in))
 	  end
 	  
 	  % B <-> N
@@ -90,8 +93,8 @@ function [B, N, J, x_B] = simplex_core(B, N, b, c_B, c_N, J, v)
 	  
 	  % J_B <-> J_N
 	  t_ = J(k_out);
-	  J(k_out) = J(N_size(2)+k_in-1);
-	  J(N_size(2)+k_in-1) = t_;
+	  J(k_out) = J(N_size(1)+k_in);
+	  J(N_size(1)+k_in) = t_;
 	  
 	  k = k+1;
   end
