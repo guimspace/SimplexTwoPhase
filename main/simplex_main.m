@@ -29,15 +29,16 @@ function x_B = simplex_main(A, b, c, v)
   mPn = m + n; % mPn = m + n
   
   if v
-    fprintf('------- Simplex Two-phase Algorithm -------\n');
+    fprintf('-------------------------------------------\n');
+    fprintf('-       Simplex Two-phase Algorithm       -\n');
+    fprintf('-------------------------------------------\n\n\n');
   end
   
   
   
   % ------- Phase 1 ------- %
   if v
-    fprintf('\n\n\n');
-    fprintf('----- Phase 1 -----\n');
+    fprintf('--- Phase 1\n');
   end
   
   
@@ -54,10 +55,11 @@ function x_B = simplex_main(A, b, c, v)
   for i = 1:1:m
     if J(i) > p
       if(J(i) > n  &&  x_B(i) ~= 0) % Test artificial variable for feasibility
+        x_B = [ ];
         if v
-          fprintf('\n\n');
-          fprintf('Operation stopped');
-          fprintf('The original problem has no feasible solution.');
+          fprintf('\n');
+          fprintf('Operation stopped\n');
+          fprintf('The original problem has no feasible solution.\n\n');
         end
         return
       else
@@ -92,14 +94,15 @@ function x_B = simplex_main(A, b, c, v)
   
   % ------- Phase 2 ------- %
   if v
-    fprintf('\n\n\n');
-    fprintf('----- Phase 2 -----\n');
+    fprintf('\n');
+    fprintf('--- Phase 2\n');
   end
   
   [B, N, J, x_B] = simplex_core(B, N, b, c_B, c_N, J, v);
   
-  
-  
+  if isempty(x_B)
+    return
+  end
   
   
   % Blob Plot

@@ -29,17 +29,17 @@ function [B, N, J, x_B] = simplex_core(B, N, b, c_B, c_N, J, v)
   k = 1;
   while true
 	  % Basic feasible solution
-	  x_B = B\b;
+	  x_B = B \ b;
 	  
 	  
 	  % Simplex multiplier
-	  w = c_B/B;
+	  w = c_B / B;
 	  
 	  
 	  % Pricing operation
 	  zMc = [ ]; % zMc = z_k - c_k = wa_j - c_j
 	  for i = 1:1:n
-		  zMc(i) = w*N(:, i) - c_N(i);
+		  zMc(i) = w * N(:, i) - c_N(i);
 	  end
     
 	  
@@ -49,7 +49,8 @@ function [B, N, J, x_B] = simplex_core(B, N, b, c_B, c_N, J, v)
 	  if c_k <= 0
 	    if v
 	      fprintf('\n');
-	      fprintf('Optimal solution found.\n');
+	      fprintf('Simplex complete\n');
+	      fprintf('Optimal solution found.\n\n');
 	    end
 	    return
 	  else
@@ -65,10 +66,13 @@ function [B, N, J, x_B] = simplex_core(B, N, b, c_B, c_N, J, v)
 		  end
 		  
 		  
-		  if isempty(r) % Test unboundness
+		  % Test unboundness
+		  if isempty(r)
+		    x_B = [];
 		    if v
 		      fprintf('\n');
-		      fprintf('Optimal solution is unbounded.\n');
+		      fprintf('Simplex stopped\n');
+		      fprintf('Unbounded optimal objective value.\n\n');
 		    end
 		    return
 	    else
@@ -81,7 +85,7 @@ function [B, N, J, x_B] = simplex_core(B, N, b, c_B, c_N, J, v)
 	  
 	  % Switch columns
 	  if v
-	    fprintf('%d:  z = %f;  %d <-> %d\n', k, c_B*x_B, J(k_out), J(m+k_in))
+	    fprintf('%d.  z = %f;  %d <-> %d\n', k, c_B*x_B, J(k_out), J(m+k_in))
 	  end
 	  
 	  % B <-> N
