@@ -48,7 +48,8 @@ function [B, N, J, x_B] = simplex_core(B, N, b, c_B, c_N, J, v)
 	  
 	  if c_k <= 0
 	    if v
-	      fprintf('Optimal solution found.\n')
+	      fprintf('\n');
+	      fprintf('Optimal solution found.\n');
 	    end
 	    return
 	  else
@@ -66,7 +67,8 @@ function [B, N, J, x_B] = simplex_core(B, N, b, c_B, c_N, J, v)
 		  
 		  if isempty(r) % Test unboundness
 		    if v
-		      fprintf('Optimal solution is unbounded.\n')
+		      fprintf('\n');
+		      fprintf('Optimal solution is unbounded.\n');
 		    end
 		    return
 	    else

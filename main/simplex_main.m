@@ -56,7 +56,8 @@ function x_B = simplex_main(A, b, c, v)
       if(J(i) > n  &&  x_B(i) ~= 0) % Test artificial variable for feasibility
         if v
           fprintf('\n\n');
-          msgbox('The original problem has no feasible solution.', 'Operation stopped', 'error');
+          fprintf('Operation stopped');
+          fprintf('The original problem has no feasible solution.');
         end
         return
       else
