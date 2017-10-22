@@ -21,15 +21,17 @@
  %%
  % Harvest identiy columns from A to B and fill with artificial variables.
 %%
-function [B, N, c_B, c_N, J] = free_refill(A)
+function [B, N, c_B, c_N, J, hasArtificial] = free_refill(A)
   [m, n] = size(A);
   mPn = m + n;
   
   B = eye(m);
   N = [ ];
   c_B = zeros(1, m);
-  c_N = zeros(1, n);
+  c_N = [ ];
   J = [ zeros(1, mPn) ];
+  
+  hasArtificial = false;
   
   
   for j = n:-1:1
@@ -44,14 +46,20 @@ function [B, N, c_B, c_N, J] = free_refill(A)
     end
   end
   
-  k = n + 1;
+  k = n;
   for i = 1:1:m
     if ~J(i)
       c_B(i) = 1;
-      J(i) = k;
       k = k + 1;
+      J(i) = k;
     end
   end
+  
+  % Test if artificial variables were introduced
+  if k > n
+    hasArtificial = true;
+  end
+  
   
   n_ = mPn;  i = i + 1;
   while i <= n_

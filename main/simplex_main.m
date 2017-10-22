@@ -43,41 +43,68 @@ function x_B = simplex_main(A, b, c, v)
   
   
   % Free Refill
-  [B, N, c_B, c_N, J] = free_refill(A);
+  [B, N, c_B, c_N, J, hasArtificial] = free_refill(A);
   
   
-  % Jumper
-  [B, N, J, x_B] = simplex_core(B, N, b, c_B, c_N, J, v);
-  
-  
-  % Clean Up
-  c_B = [ ];
-  for i = 1:1:m
-    if J(i) > p
-      if(J(i) > n  &&  x_B(i) ~= 0) % Test artificial variable for feasibility
-        x_B = [ ];
-        if v
-          fprintf('\n');
-          fprintf('Operation stopped\n');
-          fprintf('The original problem has no feasible solution.\n\n');
+  if hasArtificial
+    % Jumper
+    [B, N, J, x_B] = simplex_core(B, N, b, c_B, c_N, J, v);
+    
+    
+    % Clean Up
+    c_B = [ ];
+    for i = 1:1:m
+      if J(i) > p
+        if(J(i) > n  &&  x_B(i) ~= 0) % Test artificial variable for feasibility
+          x_B = [ ];
+          if v
+            fprintf('\n');
+            fprintf('Operation stopped\n');
+            fprintf('The original problem has no feasible solution.\n\n');
+          end
+          return
+        else
+          c_B(i) = 0;
         end
-        return
       else
-        c_B(i) = 0;
+        c_B(i) = c(J(i));
       end
-    else
-      c_B(i) = c(J(i));
     end
-  end
-  
-  c_N = [ ];
-  n_ = size(J, 2);  i = m + 1;  j = 1;
-  while i <= n_
-    if J(i) > n % Test for artificial variable
-      N(:, j) = [ ];
-      J(i) = [ ];
-      n_ = n_ - 1;
-    else
+    
+    c_N = [ ];
+    n_ = size(J, 2);  i = m + 1;  j = 1;
+    while i <= n_
+      if J(i) > n % Test for artificial variable
+        N(:, j) = [ ];
+        J(i) = [ ];
+        n_ = n_ - 1;
+      else
+        if J(i) > p % Test for slack variable
+          c_N(j) = 0;
+        else
+          c_N(j) = c(J(i));
+        end
+        i = i + 1;
+        j = j + 1;
+      end
+    end
+  else
+    if v
+      fprintf('\n');
+      fprintf('Skip\n');
+      fprintf('Starting solution is trivial.\n\n');
+    end
+    
+    for i = 1:1:m
+      if J(i) > p
+        c_B(i) = 0;
+      else
+        c_B(i) = c(J(i));
+      end
+    end
+    
+    n_ = size(J, 2);  i = m + 1;  j = 1;
+    while i <= n_
       if J(i) > p % Test for slack variable
         c_N(j) = 0;
       else
