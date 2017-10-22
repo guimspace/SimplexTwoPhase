@@ -41,46 +41,9 @@ function x_B = simplex_main(A, b, c, v)
   
   
   % Free Refill
-  B = eye(A_size(1));
-  N = [ ];
-  c_B = zeros(1, A_size(1));
-  c_N = zeros(1, A_size(2));
-  J = [zeros(1,mPn)];
+  [B N c_B c_N J] = free_refill(A);
   
-  for j = A_size(2):-1:1
-    i = A_size(1);
-    [r k] = recursive_is_identity_array(transpose(A(:,j)), i, false);
-    
-    if(r  &&  ~J(k))
-      J(k) = j;
-    else
-      J(A_size(1)+j) = j;
-      N = [A(:,j) N];
-    end
-  end
   
-  k = A_size(2) + 1;
-  for i = 1:1:A_size(1)
-    if ~J(i)
-      c_B(i) = 1;
-      J(i) = k;
-      k = k + 1;
-    end
-  end
-  
-  n = mPn;  i = i + 1;
-  while i <= n
-    if ~J(i)
-      J(i) = [ ];
-      n = n - 1;
-    else
-      i = i + 1;
-    end
-  end
-  
-  c_N = zeros(1, n);
-  
-
   % Jumper
   [B, N, J, x_B] = simplex_core(B, N, b, c_B, c_N, J, v);
   
