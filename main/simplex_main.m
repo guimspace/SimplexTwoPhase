@@ -85,25 +85,19 @@ function x_B = simplex_main(A, b, c, v)
   [B, N, J, x_B] = simplex_core(B, N, b, c_B, c_N, J, v);
   
   
-  % Wanted Dead Or Alive - NOT!
+  % Clean Up
+  c_B = [ ];
   for i = 1:1:A_size(1)
-    if J(i) > A_size(2)
-      if x_B(i) ~= 0 % Test artificial variable for feasibility
+    if J(i) > c_size(2)
+      if (J(i) > A_size(2)  &&  x_B(i) ~= 0) % Test artificial variable for feasibility
         if v
           fprintf('\n\n');
           msgbox('The original problem has no feasible solution.', 'Operation stopped', 'error');
         end
         return
+      else
+        c_B(i) = 0;
       end
-    end
-  end
-  
-  
-  % Clean Up
-  c_B = [ ];
-  for i = 1:1:A_size(1)
-    if(J(i) > c_size(2))
-      c_B(i) = 0;
     else
       c_B(i) = c(J(i));
     end
