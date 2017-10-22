@@ -49,7 +49,7 @@ function x_B = simplex_main(A, b, c, v)
   
   for j = A_size(2):-1:1
     i = A_size(1);
-    [r k] = recursive_is_identity_column(transpose(A(:,j)), i, false);
+    [r k] = recursive_is_identity_array(transpose(A(:,j)), i, false);
     
     if(r  &&  ~J(k))
       J(k) = j;

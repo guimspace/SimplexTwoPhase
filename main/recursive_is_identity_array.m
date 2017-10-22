@@ -1,7 +1,7 @@
  %%
  % Recursively verify if V is an identity array.
 %%
-function [r k] = recursive_is_identity_column(V, index, t)
+function [r k] = recursive_is_identity_array(V, index, t)
   i = index;
   while(i > 0  &&  V(i) == 0)
     i = i - 1;
@@ -17,7 +17,7 @@ function [r k] = recursive_is_identity_column(V, index, t)
       r = false;
     else
       i = i - 1;
-      r = foo_search(V, i, true);
+      r = recursive_is_identity_array(V, i, true);
     end
   end
 end
