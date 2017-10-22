@@ -58,9 +58,40 @@ function x_B = simplex_main(A, b, c, v)
   
   [B, N, J, x_B] = simplex_core(B, A, b, c_B, c_N, J, v);
   
+  
+  %Clean Up
+  c_B = [ ];
+  for i = 1:1:A_size(1)
+    if(J(i) > c_size(2))
+      c_B(i) = 0;
+    else
+      c_B(i) = c(J(i));
+    end
+  end
+  
+  c_N = [ ];
+  i = A_size(1) + 1;  j = 1;  k = 0;
+  while(i <= mPn - k)
+    if(J(i) > A_size(2)) % Test for artificial variable
+      N(:,j) = [ ];
+      J(i) = [ ];
+      k = k + 1;
+    else
+      if(J(i) > c_size(2)) % Test for slack variable
+        c_N(j) = 0;
+      else
+        c_N(j) = c(J(i));
+      end
+      i = i + 1;
+      j = j + 1;
+    end
+  end
+  
   if(v)
     B
     N
+    c_B
+    c_N
     J
   end
   
