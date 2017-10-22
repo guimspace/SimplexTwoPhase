@@ -26,7 +26,7 @@ function [B, N, J, x_B] = simplex_core(B, N, b, c_B, c_N, J, v)
 
 
   k = 1;
-  while (true && k < 10)
+  while true
 	  % Basic feasible solution
 	  x_B = B\b;
 	  
