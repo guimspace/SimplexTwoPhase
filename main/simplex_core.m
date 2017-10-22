@@ -43,14 +43,18 @@ function [B, N, J, x_B] = simplex_core(B, N, b, c_B, c_N, J, v)
 	  end
     
 	  
-	  % Test for optimality
 	  [c_k k_in] = max(zMc);
 	  
-	  if c_k <= 0
+	  if c_k <= 0 % Test for optimality
 	    if v
 	      fprintf('\n');
 	      fprintf('Simplex complete\n');
-	      fprintf('Optimal solution found.\n\n');
+	      
+	      if c_k == 0
+	        fprintf('Alternative optimal solutions found.\n\n');
+        else
+          fprintf('Optimal solution found.\n\n');
+	      end
 	    end
 	    return
 	  else
