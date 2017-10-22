@@ -95,6 +95,24 @@ function x_B = simplex_main(A, b, c, v)
     fprintf('----- Phase 2 -----\n');
   end
   
-  % ...
+  [B, N, J, x_B] = simplex_core(B, N, b, c_B, c_N, J, v);
+  
+  
+  
+  
+  
+  % Blob Plot
+  x_ = [ zeros(1, p) ];
+  
+  i = 1;  j = 1;
+  while(i <= m  &&  j <= p)
+    if J(i) <= p
+      x_(J(i)) = x_B(i);
+      j = j + 1;
+    end
+    i = i + 1;
+  end
+  
+  x_B = transpose(x_);
   
 end
