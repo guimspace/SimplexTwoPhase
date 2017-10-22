@@ -21,8 +21,8 @@
  %%
  % Harvest identiy columns from A to B and fill with artificial variables.
 %%
-function [B N c_B c_N J] = free_refill(A)
-  [m n] = size(A);
+function [B, N, c_B, c_N, J] = free_refill(A)
+  [m, n] = size(A);
   mPn = m + n;
   
   B = eye(m);
@@ -34,7 +34,7 @@ function [B N c_B c_N J] = free_refill(A)
   
   for j = n:-1:1
     i = m;
-    [r k] = recursive_is_identity_array(transpose(A(:, j)), i, false);
+    [r, k] = recursive_is_identity_array(transpose(A(:, j)), i, false);
     
     if(r  &&  ~J(k))
       J(k) = j;

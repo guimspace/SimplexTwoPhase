@@ -24,25 +24,25 @@
 function x_B = simplex_main(A, b, c, v)
   clc;
   
-  A_size = size(A);
-  c_size = size(c);
-  mPn = A_size(1) + A_size(2); % mPn = m + n
+  [m, n] = size(A);
+  p = size(c, 2);
+  mPn = m + n; % mPn = m + n
   
-  if(v)
+  if v
     fprintf('------- Simplex Two-phase Algorithm -------\n');
   end
   
   
   
   % ------- Phase 1 ------- %
-  if(v)
+  if v
     fprintf('\n\n\n');
     fprintf('----- Phase 1 -----\n');
   end
   
   
   % Free Refill
-  [B N c_B c_N J] = free_refill(A);
+  [B, N, c_B, c_N, J] = free_refill(A);
   
   
   % Jumper
@@ -51,9 +51,9 @@ function x_B = simplex_main(A, b, c, v)
   
   % Clean Up
   c_B = [ ];
-  for i = 1:1:A_size(1)
-    if J(i) > c_size(2)
-      if (J(i) > A_size(2)  &&  x_B(i) ~= 0) % Test artificial variable for feasibility
+  for i = 1:1:m
+    if J(i) > p
+      if(J(i) > n  &&  x_B(i) ~= 0) % Test artificial variable for feasibility
         if v
           fprintf('\n\n');
           msgbox('The original problem has no feasible solution.', 'Operation stopped', 'error');
@@ -68,14 +68,14 @@ function x_B = simplex_main(A, b, c, v)
   end
   
   c_N = [ ];
-  n = size(J, 2);  i = A_size(1) + 1;  j = 1;
-  while(i <= n)
-    if(J(i) > A_size(2)) % Test for artificial variable
-      N(:,j) = [ ];
+  n_ = size(J, 2);  i = m + 1;  j = 1;
+  while i <= n_
+    if J(i) > n % Test for artificial variable
+      N(:, j) = [ ];
       J(i) = [ ];
-      n = n - 1;
+      n_ = n_ - 1;
     else
-      if(J(i) > c_size(2)) % Test for slack variable
+      if J(i) > p % Test for slack variable
         c_N(j) = 0;
       else
         c_N(j) = c(J(i));
@@ -90,7 +90,7 @@ function x_B = simplex_main(A, b, c, v)
   
   
   % ------- Phase 2 ------- %
-  if(v)
+  if v
     fprintf('\n\n\n');
     fprintf('----- Phase 2 -----\n');
   end
