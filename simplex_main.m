@@ -29,9 +29,6 @@ function x_B = simplex_main(A, b, c, v)
   
   if(v)
     fprintf('------- Simplex Two-phase Algorithm -------\n');
-    A
-    b
-    c
   end
   
   
@@ -84,13 +81,6 @@ function x_B = simplex_main(A, b, c, v)
   c_N = zeros(1, n);
   
   % Jumper
-  if(v)
-    B
-    N
-    c_B
-    c_N
-    J
-  end
 
   [B, N, J, x_B] = simplex_core(B, N, b, c_B, c_N, J, v);
   
@@ -121,14 +111,6 @@ function x_B = simplex_main(A, b, c, v)
       i = i + 1;
       j = j + 1;
     end
-  end
-  
-  if(v)
-    B
-    N
-    c_B
-    c_N
-    J
   end
   
   
