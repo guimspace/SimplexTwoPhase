@@ -71,8 +71,6 @@ function x_B = simplex_main(A, b, c, v)
     end
   end
   
-  c_N = zeros(1, A_size(2)-sum(c_B));
-  
   n = mPn;  i = i + 1;
   while i <= n
     if ~J(i)
@@ -83,6 +81,7 @@ function x_B = simplex_main(A, b, c, v)
     end
   end
   
+  c_N = zeros(1, n);
   
   % Jumper
   if(v)
@@ -107,12 +106,12 @@ function x_B = simplex_main(A, b, c, v)
   end
   
   c_N = [ ];
-  i = A_size(1) + 1;  j = 1;  k = 0;
-  while(i <= mPn - k)
+  n = size(J, 2);  i = A_size(1) + 1;  j = 1;
+  while(i <= n)
     if(J(i) > A_size(2)) % Test for artificial variable
       N(:,j) = [ ];
       J(i) = [ ];
-      k = k + 1;
+      n = n - 1;
     else
       if(J(i) > c_size(2)) % Test for slack variable
         c_N(j) = 0;
