@@ -3,6 +3,8 @@
 
 > A Dantzig's simplex algorithm to solve linear programming problems (LPP) with two-phase method to obtain an initial basic feasible solution.
 
+
+
 ## About
 
 The code is written in MATLAB language and supports **minization LPP in standard form**:
@@ -11,8 +13,9 @@ The code is written in MATLAB language and supports **minization LPP in standard
     subject to Ax = b
                 x >= 0
 
-Where **c** is a vector of _cost coefficients_, **x** is a vector of _decision variables_, **Ax=b** are the constraints, and elements **a_ij** from **A** are _technological coefficients_.
+where **c** is a _cost coefficients_ vector, **x** is a vector of _decision variables_, **b** is a (__RHS__) vector of minimal requirements to be satisfied (_demands_), and elements **a_ij** from **A** are _technological coefficients_.
+
 
 
 ## Reference
-Bazaraa, M. S., J. J. Jarvis, H. D. Sherali, _Linear Programming and Network Flows_, John Wiley & Sons, New Jersey, 2010.
+Bazaraa, Mokhtar S., et al. _Linear Programming and Network Flows_, John Wiley & Sons, New Jersey, 2010.
