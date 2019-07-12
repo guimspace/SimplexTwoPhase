@@ -32,9 +32,9 @@ function [x z chk] = simplex_main(A, b, c, v)
 	p = size(c, 2);
 	mPn = m + n; % mPn = m + n
 
-	fprintf('-------------------------------------------\n');
-	fprintf('-       Simplex Two-phase Algorithm       -\n');
-	fprintf('-------------------------------------------\n\n\n');
+	fprintf('----------------------------------------\n');
+	fprintf('-  Simplex Two-phase Algorithm v1.0.0  -\n');
+	fprintf('----------------------------------------\n\n\n');
 
 	% ------- Phase 1 ------- %
 	if v
