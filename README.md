@@ -1,5 +1,5 @@
 # Dantzig's Simplex Algorithm
-[![License](https://img.shields.io/badge/license-MIT%20License-red.svg)](https://github.com/g117126unicamp/SimplexTwoPhase/blob/master/LICENSE.md)
+[![License](https://img.shields.io/badge/license-MIT%20License-red.svg)](https://github.com/guimspace/SimplexTwoPhase/blob/master/LICENSE.md)
 
 > A Dantzig's simplex algorithm to solve linear programming problems (LPP) with two-phase method to obtain an initial basic feasible solution.
 
