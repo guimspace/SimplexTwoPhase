@@ -3,7 +3,7 @@
 
 > A Dantzig's simplex algorithm to solve linear programming problems (LPP) with two-phase method to obtain an initial basic feasible solution.
 
-
+**Notice** Use _SimplexTwoPhase_ script for educational purposes only. The script is NOT suitable for professional application as it is not meant to be the most efficient, optimized, correct and secure implementation of the Dantzig's simplex algorithm.
 
 ## About
 
