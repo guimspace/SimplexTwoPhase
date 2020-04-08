@@ -41,7 +41,7 @@ function [x z chk] = simplex_main(A, b, c, v)
 
 	if hasArtificial
 		% Jumper
-		[B, N, J, x_B, chk] = simplex_core(B, N, b, c_B, c_N, J, v);
+		[B, N, J, x_B, chk] = simplex_algorithm(B, N, b, c_B, c_N, J, v);
 
 
 		% Clean Up
@@ -116,7 +116,7 @@ function [x z chk] = simplex_main(A, b, c, v)
 		fprintf("Phase 2\n");
 	end
 
-	[B, N, J, x_B, chk] = simplex_core(B, N, b, c_B, c_N, J, v);
+	[B, N, J, x_B, chk] = simplex_algorithm(B, N, b, c_B, c_N, J, v);
 
 	% Blob Plot
 	if(chk == 0 || chk == 1)

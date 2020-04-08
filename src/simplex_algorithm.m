@@ -21,7 +21,7 @@
 %%
  % Dantzig's Simplex Algorithm
  %%
-function [B, N, J, x_B, chk] = simplex_core(B, N, b, c_B, c_N, J, v)
+function [B, N, J, x_B, chk] = simplex_algorithm(B, N, b, c_B, c_N, J, v)
 	chk = 0;
 	[m, n] = size(N);
 
