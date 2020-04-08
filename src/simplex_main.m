@@ -1,7 +1,7 @@
 %	MIT License
 %
 %	Copyright (c) 2017 Guilherme Tadashi Maeoka
-%	https://github.com/g117126unicamp/SimplexTwoPhase
+%	https://github.com/guimspace/SimplexTwoPhase
 %
 %	Permission is hereby granted, free of charge, to any person obtaining a copy
 %	of this software and associated documentation files (the "Software"), to deal
