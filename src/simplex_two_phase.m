@@ -21,7 +21,7 @@
 %%
  % Main control for simplex two-phase algorithm.
  %%
-function [x z chk] = simplex_main(A, b, c, v)
+function [x z chk] = simplex_two_phase(A, b, c, v)
 	if v
 		fprintf("SimplexTwoPhase v1.1.0\n");
 	end

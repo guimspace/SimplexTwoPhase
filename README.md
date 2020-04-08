@@ -24,14 +24,14 @@ where **c** is a _cost coefficients_ vector, **x** is a vector of _decision vari
     ];
     b = [4; 1];
     c = [-3 1];
-    [x z] = simplex_main(A, b, c, false)
-    
+    [x z] = simplex_two_phase(A, b, c, false)
+
 **Result**
 
     x =
         4
         0
-    
+
     z =
         -12
 
