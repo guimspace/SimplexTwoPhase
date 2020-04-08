@@ -84,8 +84,7 @@ function [x z chk] = simplex_main(A, b, c, v)
 		end
 	else
 		if v
-			fprintf("Skip\n");
-			fprintf("Starting solution is trivial.\n");
+			fprintf("Skip: starting solution is trivial.\n");
 		end
 
 		for i = 1:1:m
