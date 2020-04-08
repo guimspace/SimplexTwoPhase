@@ -43,13 +43,13 @@ function [B, N, J, x_B, chk] = simplex_core(B, N, b, c_B, c_N, J, v)
 
 		if c_k <= 0 % Test for optimality
 			if v
-				fprintf('Simplex complete\n');
+				fprintf("Simplex complete\n");
 
 				if c_k == 0
 					chk = 1;
-					fprintf('Alternative optimal solutions found.\n');
+					fprintf("Alternative optimal solutions found.\n");
 				else
-					fprintf('Optimal solution found.\n');
+					fprintf("Optimal solution found.\n");
 				end
 			end
 			return
@@ -71,8 +71,8 @@ function [B, N, J, x_B, chk] = simplex_core(B, N, b, c_B, c_N, J, v)
 				chk = 10;
 				x_B = [ ];
 				if v
-					fprintf('Simplex stopped\n');
-					fprintf('Unbounded optimal objective value.\n');
+					fprintf("Simplex stopped\n");
+					fprintf("Unbounded optimal objective value.\n");
 				end
 				return
 			else
@@ -85,7 +85,7 @@ function [B, N, J, x_B, chk] = simplex_core(B, N, b, c_B, c_N, J, v)
 
 		% Switch columns
 		if v
-			fprintf('%d.  z = %f;  %d <-> %d\n', k, c_B*x_B, J(k_out), J(m+k_in));
+			fprintf("%d.  z = %f;  %d <-> %d\n", k, c_B*x_B, J(k_out), J(m+k_in));
 		end
 
 		% B <-> N

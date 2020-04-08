@@ -32,7 +32,7 @@ function [x z chk] = simplex_main(A, b, c, v)
 
 	% ------- Phase 1 ------- %
 	if v
-		fprintf('Phase 1\n');
+		fprintf("Phase 1\n");
 	end
 
 
@@ -50,9 +50,9 @@ function [x z chk] = simplex_main(A, b, c, v)
 			if J(i) > p
 				if(J(i) > n  &&  x_B(i) ~= 0) % Test artificial variable for feasibility
 					chk = -1;
-					fprintf('Empty Feasible Region\n');
-					fprintf('- The system of equations and/or inequalities defining the feasible region is inconsistent.\n');
-					fprintf('No optimal solution exists.\n');
+					fprintf("Empty Feasible Region\n");
+					fprintf("- The system of equations and/or inequalities defining the feasible region is inconsistent.\n");
+					fprintf("No optimal solution exists.\n");
 					return
 				else
 					c_B(i) = 0;
@@ -84,8 +84,8 @@ function [x z chk] = simplex_main(A, b, c, v)
 		end
 	else
 		if v
-			fprintf('Skip\n');
-			fprintf('Starting solution is trivial.\n');
+			fprintf("Skip\n");
+			fprintf("Starting solution is trivial.\n");
 		end
 
 		for i = 1:1:m
@@ -114,7 +114,7 @@ function [x z chk] = simplex_main(A, b, c, v)
 
 	% ------- Phase 2 ------- %
 	if v
-		fprintf('Phase 2\n');
+		fprintf("Phase 2\n");
 	end
 
 	[B, N, J, x_B, chk] = simplex_core(B, N, b, c_B, c_N, J, v);
@@ -135,24 +135,24 @@ function [x z chk] = simplex_main(A, b, c, v)
 		end
 
 		x = transpose(x);
-		x_ = sprintf('%d ', x);
+		x_ = sprintf("%d ", x);
 		z = c * x;
 	end
 
 	switch chk
 		case 0
-			fprintf('Unique Optimal Solution\n');
-			fprintf('Objectve value\n  z = %f\n', z);
-			fprintf('Solution\n  x^T = [ %s]\n', x_);
+			fprintf("Unique Optimal Solution\n");
+			fprintf("Objectve value\n  z = %f\n", z);
+			fprintf("Solution\n  x^T = [ %s]\n", x_);
 		case 1
-			fprintf('Alternative Optimal Solutions\n');
-			fprintf('- Optimal solution set is unbounded.\n');
-			fprintf('Objective value\n  z = %f\n', z);
-			fprintf('Solution\n  x^T = [ %s]\n', x_);
+			fprintf("Alternative Optimal Solutions\n");
+			fprintf("- Optimal solution set is unbounded.\n");
+			fprintf("Objective value\n  z = %f\n", z);
+			fprintf("Solution\n  x^T = [ %s]\n", x_);
 		case 10
-			fprintf('Unbounded Optimal Objective Value\n');
-			fprintf('- The problem is infeasible, inconsistent, or with an empty feasible region.\n');
-			fprintf('No optimal solution exists.\n');
+			fprintf("Unbounded Optimal Objective Value\n");
+			fprintf("- The problem is infeasible, inconsistent, or with an empty feasible region.\n");
+			fprintf("No optimal solution exists.\n");
 	end
-	fprintf('\n');
+	fprintf("\n");
 end
