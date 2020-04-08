@@ -23,7 +23,7 @@
  %%
 function [x z chk] = simplex_two_phase(A, b, c, v)
 	if v
-		fprintf("SimplexTwoPhase v1.1.0\n");
+		fprintf("SimplexTwoPhase v2.0.0\n");
 	end
 
 	z = [ ];
