@@ -30,13 +30,9 @@ function [x z chk] = simplex_main(A, b, c, v)
 	p = size(c, 2);
 	mPn = m + n; % mPn = m + n
 
-	fprintf('----------------------------------------\n');
-	fprintf('-  Simplex Two-phase Algorithm v1.0.0  -\n');
-	fprintf('----------------------------------------\n\n\n');
-
 	% ------- Phase 1 ------- %
 	if v
-		fprintf('--- Phase 1\n');
+		fprintf('Phase 1\n');
 	end
 
 
@@ -54,7 +50,6 @@ function [x z chk] = simplex_main(A, b, c, v)
 			if J(i) > p
 				if(J(i) > n  &&  x_B(i) ~= 0) % Test artificial variable for feasibility
 					chk = -1;
-					fprintf('------------------\n');
 					fprintf('Empty Feasible Region\n');
 					fprintf('- The system of equations and/or inequalities defining the feasible region is inconsistent.\n');
 					fprintf('No optimal solution exists.\n');
@@ -90,7 +85,7 @@ function [x z chk] = simplex_main(A, b, c, v)
 	else
 		if v
 			fprintf('Skip\n');
-			fprintf('Starting solution is trivial.\n\n\n');
+			fprintf('Starting solution is trivial.\n');
 		end
 
 		for i = 1:1:m
@@ -119,7 +114,7 @@ function [x z chk] = simplex_main(A, b, c, v)
 
 	% ------- Phase 2 ------- %
 	if v
-		fprintf('--- Phase 2\n');
+		fprintf('Phase 2\n');
 	end
 
 	[B, N, J, x_B, chk] = simplex_core(B, N, b, c_B, c_N, J, v);
@@ -144,7 +139,6 @@ function [x z chk] = simplex_main(A, b, c, v)
 		z = c * x;
 	end
 
-	fprintf('------------------\n');
 	switch chk
 		case 0
 			fprintf('Unique Optimal Solution\n');

@@ -43,14 +43,13 @@ function [B, N, J, x_B, chk] = simplex_core(B, N, b, c_B, c_N, J, v)
 
 		if c_k <= 0 % Test for optimality
 			if v
-				fprintf('\n');
 				fprintf('Simplex complete\n');
 
 				if c_k == 0
 					chk = 1;
-					fprintf('Alternative optimal solutions found.\n\n\n');
+					fprintf('Alternative optimal solutions found.\n');
 				else
-					fprintf('Optimal solution found.\n\n\n');
+					fprintf('Optimal solution found.\n');
 				end
 			end
 			return
@@ -72,9 +71,8 @@ function [B, N, J, x_B, chk] = simplex_core(B, N, b, c_B, c_N, J, v)
 				chk = 10;
 				x_B = [ ];
 				if v
-					fprintf('\n');
 					fprintf('Simplex stopped\n');
-					fprintf('Unbounded optimal objective value.\n\n\n');
+					fprintf('Unbounded optimal objective value.\n');
 				end
 				return
 			else
