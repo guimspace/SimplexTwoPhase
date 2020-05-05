@@ -36,5 +36,18 @@ where **c** is a _cost coefficients_ vector, **x** is a vector of _decision vari
         -12
 
 
+## Contribute code and ideas
+
+Contributors *sign-off* that they adhere to the [Developer Certificate of Origin (DCO)](https://developercertificate.org/) by adding a `Signed-off-by` line to commit messages.
+
+```
+$ git commit -s -m 'This is my commit message'
+```
+
+For straight forward patches and minor changes, [create a pull request](https://help.github.com/en/articles/creating-a-pull-request).
+
+For larger changes and feature ideas, please open an issue first for a discussion before implementation.
+
+
 ## Reference
 Bazaraa, Mokhtar S., et al. _Linear Programming and Network Flows_, John Wiley & Sons, New Jersey, 2010.
